@@ -1,11 +1,18 @@
 import axios from 'axios';
 
-export function upload(str) {
-  return axios.post('https://api.myjson.com/bins', {
-    img: str
+export async function upload(str) {
+  const response = await axios({
+    method: 'POST',
+    url: 'https://api.myjson.com/bins',
+    data: {
+      img: str
+    },
   });
+
+  return response.data.uri;
 }
 
-export function download(uri) {
-  return axios.get(uri);
+export async function download(uri) {
+  const response = await axios.get(uri);
+  return response.data.img;
 }

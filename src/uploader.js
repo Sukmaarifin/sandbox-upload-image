@@ -1,6 +1,29 @@
 import { upload, download } from './service';
 export default class Uploader {
-  constructor() {}
+  constructor() {
+  }
+
+  async process(str) {
+    const uri = await upload(str);
+    const imageUrl = await download(uri);
+
+    return imageUrl;
+  }
+
+  getImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        resolve({
+          base64: reader.result,
+          preview: e.target.result,
+        });
+      };
+      reader.onerror = error => reject(error);
+    })
+  }
+
 
   /*
 
