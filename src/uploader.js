@@ -5,7 +5,7 @@ export default class Uploader {
 
   async process(str) {
     const uri = await upload(str);
-    const imageUrl = await download(uri);
+    const imageUrl = await download(uri.data.id);
 
     return imageUrl;
   }

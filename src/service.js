@@ -1,18 +1,22 @@
 import axios from 'axios';
 
-export async function upload(str) {
-  const response = await axios({
-    method: 'POST',
-    url: 'https://api.myjson.com/bins',
-    data: {
+export function upload(str) {
+  return axios.post(
+    'https://api.jsonbin.io/b',
+    {
       img: str
     },
-  });
-
-  return response.data.uri;
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'secret-key':
+          '$2a$10$bMtNJ5..lMW4994WIeunpO6GnSaL4EIAGVraZBLdUtNXv03MdRrBe',
+        private: false
+      }
+    }
+  );
 }
 
-export async function download(uri) {
-  const response = await axios.get(uri);
-  return response.data.img;
+export function download(id) {
+  return axios.get(`https://api.jsonbin.io/b/${id}`);
 }

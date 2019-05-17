@@ -10,10 +10,8 @@ document.getElementById("chooseImgButton").addEventListener("change", async func
     const file = e.target.files[0];
 
     const result = await uploader.getImage(file);
-    console.log(result.preview);
     previewElement.style.backgroundImage = `url(${result.preview})`;
     const uploadResult = await uploader.process(result.base64);
-    console.log(uploadResult);
 
-    uploadedImageElement.style.backgroundImage = `url(${uploadResult})`;
+    uploadedImageElement.style.backgroundImage = `url(${uploadResult.data.img})`;
 });
